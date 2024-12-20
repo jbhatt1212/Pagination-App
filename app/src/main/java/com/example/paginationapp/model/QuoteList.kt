@@ -4,10 +4,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 data class QuoteList (
-    val count: Int,
-    val lastItemIndex: Int,
-    val page: Int,
-    val results: List<Result>,
-    val totalCount: Int,
-    val totalPages: Int
+    val limit: Int,
+    val quotes: List<Quote>,
+    val skip: Int,
+    val total: Int
 )
+@Entity(tableName = "Quote")
+data class Quote(
+    @PrimaryKey(autoGenerate = true) val tbId: Int = 0,
+    val author: String,
+    val id: Int,
+    val quote: String
+)
+
