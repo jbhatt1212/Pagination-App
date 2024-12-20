@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.paginationapp.model.Result
-
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paginationapp.R
+import com.example.paginationapp.model.Quote
 
-class QuoteAdapter : PagingDataAdapter<Result, QuoteAdapter.QuoteViewHolder>(
+class QuoteAdapter: PagingDataAdapter<Quote, QuoteAdapter.QuoteViewHolder>(
     COMPARATOR) {
-
     class QuoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val quote = itemView.findViewById<TextView>(R.id.tvQuote)
     }
@@ -27,17 +25,20 @@ class QuoteAdapter : PagingDataAdapter<Result, QuoteAdapter.QuoteViewHolder>(
 
     override fun onBindViewHolder(holder: QuoteViewHolder, position: Int) {
         val item = getItem(position)
-        holder.quote.text = item!!.content
+        Log.e("QuoteAdapter", "Binding quote at position $position: $item")
+
+        holder.quote.text = item!!.quote
+
     }
 
 
     companion object{
-        private val COMPARATOR = object: DiffUtil.ItemCallback<Result>(){
-            override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
-                return oldItem._id == newItem._id
+        private val COMPARATOR = object: DiffUtil.ItemCallback<Quote>(){
+            override fun areItemsTheSame(oldItem: Quote, newItem: Quote): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
+            override fun areContentsTheSame(oldItem: Quote, newItem: Quote): Boolean {
                 return oldItem == newItem
             }
         }
